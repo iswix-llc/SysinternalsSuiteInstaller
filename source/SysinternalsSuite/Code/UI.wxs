@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Fragment>
+    <UI Id="UI">
+      <UIRef Id="WixUI_FeatureTree"/>
+      <UIRef Id="CustomDlg"/>
+      <ProgressText Action="DownloadAndExtractZip" Template="URL: [1]">Downloading and extracting Sysinternals Suite archive."</ProgressText>
+    </UI>
+   </Fragment>
+</Wix>

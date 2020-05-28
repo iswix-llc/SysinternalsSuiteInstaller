@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Fragment>
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="INSTALLLOCATION" Name="Microsoft Sysinternals Suite">
+          <Component Id="directoryComponent" Guid="{C7C49E6D-6666-47E4-9FE2-5BBAC8544615}" KeyPath="yes">
+            <CreateFolder />
+            <RegistryValue Root="HKLM" Key="SOFTWARE\Microsoft Sysinternals Suite" Name="URL" Type="string" Value="[URL]"/>
+            <ReserveCost Id="zipCost" RunFromSource="108810240" RunLocal="108810240"/>
+            <Environment Id="envPath" Name="PATH" Action="set" Part="last" System="yes" Value="[INSTALLLOCATION]"/>
+          </Component>
+        </Directory>
+      </Directory>
+      <Directory Id="ProgramMenuFolder">
+        <Component Id="shortcutComponent" Guid="{E83E29DE-DE44-4B67-B7BD-954B7CD0A63D}">
+          <Shortcut Id="shotcutFolder" Name="Sysinternals Suite" Target="[INSTALLLOCATION]" />
+          <RegistryValue Root="HKCU" Key="Software\Sysinternals Suite" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
+        </Component>
+      </Directory>
+    </Directory>
+    <Feature Id="SYSINTERNALSSUITE" Title="Sysinternals Suite" Description="Installs all the files needed for Sysinternals Suite" Level="1" AllowAdvertise="no" ConfigurableDirectory="INSTALLLOCATION">
+      <ComponentRef Id="directoryComponent"/>
+      <ComponentRef Id="shortcutComponent"/>
+    </Feature>
+  </Fragment>
+</Wix>

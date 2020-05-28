@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Fragment>
+    <UI Id="CustomDlg">
+      <Dialog Id="CustomDlg" Height="270" Width="370" Title="[ProductName] Setup">
+        
+        <Control Id="BannerBitmap" Type="Bitmap" X="0" Y="0" Width="370" Height="44" Text="WixUI_Bmp_Banner"/>
+        <Control Id="Title" Type="Text" X="15" Y="6" Width="200" Height="15" Text="{\WixUI_Font_Title}SysInterals Download" Transparent="yes"/>
+        <Control Id="Description" Type="Text" X="25" Y="23" Width="280" Height="15" Text="Provide an alternative URL if you are self hosting" Transparent="yes"/>
+        <Control Id="BannerLine" Type="Line" X="0" Y="44" Width="370" Height="0"/>
+
+        <Control Id="CustomLabel" Type="Text" X="20" Y="60" Width="290" Height="15" Text="SysInternals Download URL:" TabSkip="yes"/>
+        <Control Id="Custom" Type="Edit" X="20" Y="80" Width="320" Height="18" Property="URL"/>
+
+        <Control Id="BottomLine" Type="Line" X="0" Y="234" Width="370" Height="0"/>
+        <Control Id="Next" Type="PushButton" Text="&amp;Next" TabSkip="no" Default="yes" Height="17" Width="56" X="236" Y="243">
+          <Publish Property="UrlValid" Value="{}">1</Publish>
+          <Publish Event="DoAction" Value="ValidateURL">1</Publish>
+          <Publish Event="NewDialog" Value="CustomizeDlg">UrlValid</Publish>
+        </Control>
+        <Control Id="Cancel" Type="PushButton"  Text="Cancel" TabSkip="no" Height="17" Width="56" X="304" Y="243" Cancel="yes">
+          <Publish Event="SpawnDialog" Value="CancelDlg"/>
+        </Control>
+        <Control Id="Back" Type="PushButton"  Text="&amp;Back" TabSkip="no" Height="17" Width="56" X="180" Y="243">
+          <Publish Event="NewDialog" Value="LicenseAgreementDlg"/>
+        </Control>
+        
+      </Dialog>
+      
+      <Publish Dialog="LicenseAgreementDlg" Control="Next" Event="NewDialog" Value="CustomDlg">1</Publish>
+      <Publish Dialog="CustomizeDlg" Control="Back" Event="NewDialog" Value="CustomDlg" Order="3">NOT Installed</Publish>
+      
+    </UI>
+
+    <Property Id="URL" Secure="yes"/>
+    <Property Id="FINDURL" Secure="yes">
+      <RegistrySearch Id="Url" Root="HKLM"
+                   Key="SOFTWARE\Microsoft Sysinternals Suite"
+                   Name="URL" Type="raw" />
+    </Property>
+    <SetProperty Id="FINDURL" Value="https://download.sysinternals.com/files/SysinternalsSuite.zip" After="AppSearch" Sequence="first">Not FINDURL</SetProperty>
+    <SetProperty Id="URL" Value="[FINDURL]" After="SetFINDURL" Sequence="first">Not URL</SetProperty>
+
+  </Fragment>
+</Wix>

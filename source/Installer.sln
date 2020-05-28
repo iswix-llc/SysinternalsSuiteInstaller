@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30114.105
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Actions", "Actions\Actions.csproj", "{AE9CC459-12BF-46CE-BE73-D7CF94A40C1F}"
+EndProject
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "SysinternalsSuite", "SysinternalsSuite\SysinternalsSuite.wixproj", "{FBEBCB0D-1399-48E5-AF9B-91E53750BAEA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AE9CC459-12BF-46CE-BE73-D7CF94A40C1F}.Debug|x86.ActiveCfg = Debug|x86
+		{AE9CC459-12BF-46CE-BE73-D7CF94A40C1F}.Debug|x86.Build.0 = Debug|x86
+		{AE9CC459-12BF-46CE-BE73-D7CF94A40C1F}.Release|x86.ActiveCfg = Release|x86
+		{AE9CC459-12BF-46CE-BE73-D7CF94A40C1F}.Release|x86.Build.0 = Release|x86
+		{FBEBCB0D-1399-48E5-AF9B-91E53750BAEA}.Debug|x86.ActiveCfg = Debug|x86
+		{FBEBCB0D-1399-48E5-AF9B-91E53750BAEA}.Debug|x86.Build.0 = Debug|x86
+		{FBEBCB0D-1399-48E5-AF9B-91E53750BAEA}.Release|x86.ActiveCfg = Release|x86
+		{FBEBCB0D-1399-48E5-AF9B-91E53750BAEA}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2258FAE5-4B55-495D-A33C-7E9C34494DB9}
+	EndGlobalSection
+EndGlobal

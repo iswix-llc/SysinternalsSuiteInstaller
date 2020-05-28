@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Product Id="*" Name="Sysinternals Suite" Language="1033" Version="$(var.MSIProductVersion)" Manufacturer="Microsoft" UpgradeCode="e59cc905-3854-4ceb-b998-61ce5d07a4d6">
+    <Package InstallerVersion="301" Compressed="yes" InstallScope="perMachine" />
+    <MediaTemplate EmbedCab="yes" />
+    
+    <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+    
+    <Condition Message="[ProductName] Setup requires a working installation of .NET 2.0 or greater.">Installed or (UILevel=5 or DotNetValid)</Condition>
+    <Condition Message="[ProductName] Setup requires a valid URL to obtain SysInternals.zip">Installed or (UILevel=5 or UrlValid)</Condition>
+
+    <Icon Id="Icon.ico" SourceFile="Resources\Icon.ico"/>
+    <Property Id="ARPPRODUCTICON" Value="Icon.ico"></Property>
+    <UIRef Id="UI"/>
+
+    <DirectoryRef Id="INSTALLLOCATION"/>
+
+    <Binary Id="ca" SourceFile="$(var.Actions.TargetDir)Actions.CA.dll"/>
+    
+    <CustomAction Id="ValidateURL" BinaryKey="ca" DllEntry="ValidateURL" Return="check"/>
+    <CustomAction Id="ValidateDotNet" BinaryKey="ca" DllEntry="ValidateDotNet" Return="check"/>
+
+    <CustomAction Id="CostUninstallFiles" BinaryKey="ca" DllEntry="CostUninstallFiles"></CustomAction>
+    <CustomAction Id="UninstallFiles" BinaryKey="ca" DllEntry="UninstallFiles" Execute="deferred" Impersonate="no" Return="check"/>
+    <CustomAction Id="CostDownloadAndExtractZip" BinaryKey="ca" DllEntry="CostDownloadAndExtractZip"></CustomAction>
+    <CustomAction Id="DownloadAndExtractZip" BinaryKey="ca" DllEntry="DownloadAndExtractZip" Execute="deferred" Impersonate="no" Return="check"/>
+
+    <InstallUISequence>
+      <Custom Action="ValidateDotNet" Before="LaunchConditions"></Custom>
+    </InstallUISequence>
+    
+    <InstallExecuteSequence>
+      <Custom Action="ValidateURL" Before="LaunchConditions">UILevel&lt;5</Custom>
+      <Custom Action="CostUninstallFiles" Before="RemoveFiles">REMOVE="ALL"</Custom>
+      <Custom Action="CostDownloadAndExtractZip" After="CreateFolders">Not REMOVE="ALL"</Custom>
+    </InstallExecuteSequence>
+
+  </Product>
+</Wix>
