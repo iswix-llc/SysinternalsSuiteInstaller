@@ -30,6 +30,7 @@
     </InstallUISequence>
     
     <InstallExecuteSequence>
+      <Custom Action="ValidateDotNet" Before="LaunchConditions"></Custom>
       <Custom Action="ValidateURL" Before="LaunchConditions">UILevel&lt;5</Custom>
       <Custom Action="CostUninstallFiles" Before="RemoveFiles">REMOVE="ALL"</Custom>
       <Custom Action="CostDownloadAndExtractZip" After="CreateFolders">Not REMOVE="ALL"</Custom>
